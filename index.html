@@ -1,1 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archana | Graphic Designer, Vibe Coder & Copywriter</title>
+  
+  <!-- SEO Best Practices -->
+  <meta name="description" content="Personal branding portfolio of Archana - specializing in Graphic Design, Vibe Coding interactive web apps, and High-Converting Copywriting.">
+  <meta name="keywords" content="Archana, Graphic Design, Vibe Coding, Copywriting, Web Apps, UI/UX Design, Creative Technologist, Portfolio">
+  <meta name="author" content="Archana">
+  <meta property="og:title" content="Archana | Graphic Designer, Vibe Coder & Copywriter">
+  <meta property="og:description" content="Aesthetic Graphic Design, rapid AI-driven Vibe Coding, and persuasive Copywriting for ambitious digital brands.">
+  <meta property="og:type" content="website">
 
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%22100%22%20%22100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%237c3aed%22/><text y=%2270%22 x=%2226%22 font-size=%2265%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22white%22>A</text></svg>">
+
+  <!-- Google Apps Script Modular CSS Include -->
+  <?!= HtmlService.createHtmlOutputFromFile('css').getContent(); ?>
+</head>
+<body>
+
+  <!-- Print-Only Header for PDF Summary Exporter -->
+  <div class="print-only-header container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 style="font-size: 24pt; font-weight: 800; color: #7c3aed; margin-bottom: 4px;">ARCHANA</h1>
+        <p style="font-size: 13pt; color: #334155; font-weight: 600;">Selected Works Catalog • Graphic Design | Vibe Coding | Copywriting</p>
+      </div>
+      <div style="text-align: right; font-size: 10pt; color: #64748b;">
+        <p id="print-contact-email">archana.creative@example.com</p>
+        <p id="print-contact-phone">+62 812 8990 4521</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Mode Notification Bar -->
+  <div id="admin-mode-bar" class="admin-mode-bar">
+    <div style="display: flex; align-items: center;">
+      <span class="admin-mode-tag">Admin Mode Active</span>
+      <span>Connected to Google Sheets CMS. Click any item or open CMS to edit content.</span>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button type="button" class="btn btn-sm btn-primary" onclick="openAdminCmsModal()">Open CMS Control Center</button>
+      <button type="button" class="btn btn-sm btn-outline" style="color: #fff; border-color: #64748b;" onclick="logoutAdmin()">Exit Admin</button>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <header class="navbar-wrap" id="main-navbar">
+    <div class="container navbar-inner">
+      <a href="#hero" class="brand-logo" aria-label="Archana Homepage">
+        <div class="brand-icon">A</div>
+        <span>Archana</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#process" class="nav-link">Process</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#blog" class="nav-link">Blog</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Nav Action Buttons -->
+      <div class="nav-actions">
+        <button type="button" id="btn-nav-admin" class="btn-admin-toggle" onclick="toggleAdminLogin()" title="Admin CMS Login">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span id="nav-admin-text">Admin</span>
+        </button>
+        <a href="#contact" class="btn btn-primary btn-sm" id="btn-nav-hire">Hire Me</a>
+        <button type="button" class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle mobile menu" onclick="toggleMobileMenu()">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================================
+         HERO SECTION
+         ======================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <!-- Hero Left Column: Copy & Stats -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span id="hero-badge-text">Available for select projects & collaborations</span>
+          </div>
+          <h1 class="hero-title" id="hero-title-text">
+            Hello, I'm <span class="gradient-text">Archana</span>
+          </h1>
+          <p class="hero-subtitle" id="hero-sub-text">Graphic Designer, Vibe Coder & Copywriter</p>
+          <p class="hero-bio" id="hero-bio-text">
+            Synthesizing visual elegance, AI-driven vibe coding logic, and high-converting storytelling to build digital brands that captivate and convert.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">
+              <span>Hire Me</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#portfolio" class="btn btn-outline">
+              <span>Explore Portfolio</span>
+            </a>
+          </div>
+
+          <!-- Hero Stats Counters -->
+          <div class="hero-stats-card">
+            <div class="stat-item">
+              <div class="stat-number" id="stat-years">5+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="stat-projects">120+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="stat-clients">85+</div>
+              <div class="stat-label">Satisfied Clients</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column: Visual Photo Card -->
+        <div class="hero-visual">
+          <div class="hero-image-wrap">
+            <img id="hero-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Archana Profile Portrait" class="hero-image">
+            <div class="hero-floating-pill">
+              <span class="hero-pill-badge">✨ VIBE CODING</span>
+              <span class="hero-pill-text">Azi Ramdani, S.Pd</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         ABOUT ME SECTION
+         ======================================================================== -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="about-card">
+          <div class="about-photo-wrap">
+            <img id="about-photo-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Archana at work" class="about-photo">
+            <div class="about-skills-chips">
+              <span class="skill-chip">Design Systems</span>
+              <span class="skill-chip">Vibe Coding</span>
+              <span class="skill-chip">Conversion Copy</span>
+            </div>
+          </div>
+
+          <div class="about-content">
+            <span class="section-tag">About Me</span>
+            <h2 id="about-title-text" style="font-size: 2.3rem; font-weight: 800; margin-bottom: 20px; line-height: 1.25;">
+              Crafting Experiences Where Art, AI & Storytelling Intersect
+            </h2>
+            <p id="about-desc-text" class="about-desc">
+              I combine aesthetic graphic design principles with vibe coding speed and conversion-oriented copywriting. Whether designing sleek brand visual identities, building interactive modern web interfaces with AI copilot workflows, or crafting words that evoke emotion and drive sales, I bridge the gap between creative imagination and digital execution.
+            </p>
+
+            <div class="about-highlights">
+              <div class="highlight-box">
+                <div class="highlight-title">Visual Elegance</div>
+                <div class="highlight-desc">Refined brand marks, typographic rhythm, and balanced color palettes.</div>
+              </div>
+              <div class="highlight-box">
+                <div class="highlight-title">AI Vibe Coding</div>
+                <div class="highlight-desc">Rapid prototyping with lightning performance and zero unnecessary bloat.</div>
+              </div>
+            </div>
+
+            <div class="about-actions">
+              <button type="button" class="btn btn-primary" onclick="openCvModal()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Download / View CV</span>
+              </button>
+              <a href="#contact" class="btn btn-outline">
+                <span>Contact Archana</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         WORK PROCESS SECTION
+         ======================================================================== -->
+    <section id="process" class="section section-bg-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Workflow</span>
+          <h2 class="section-title">Work Process</h2>
+          <p class="section-subtitle">
+            A battle-tested 4-step framework uniting deep research, rapid AI-assisted development, visual craft, and seamless delivery.
+          </p>
+        </div>
+
+        <div id="process-grid" class="process-grid">
+          <!-- Dynamically populated from backend / initial data -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         PORTFOLIO GRID SECTION & PDF EXPORTER
+         ======================================================================== -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Portfolio</span>
+          <h2 class="section-title">Selected Works & Projects</h2>
+          <p class="section-subtitle">
+            Explore curated projects spanning brand visual systems, interactive vibe coding applications, and high-impact sales copy.
+          </p>
+        </div>
+
+        <!-- Filter & Search Toolbar with PDF Summary Exporter -->
+        <div class="portfolio-toolbar">
+          <div class="portfolio-filters" id="portfolio-filters">
+            <button type="button" class="filter-btn active" data-category="All" onclick="handleCategoryFilter('All')">All</button>
+            <button type="button" class="filter-btn" data-category="Graphic Design" onclick="handleCategoryFilter('Graphic Design')">Graphic Design</button>
+            <button type="button" class="filter-btn" data-category="Vibe Coding" onclick="handleCategoryFilter('Vibe Coding')">Vibe Coding</button>
+            <button type="button" class="filter-btn" data-category="Copywriting" onclick="handleCategoryFilter('Copywriting')">Copywriting</button>
+          </div>
+
+          <div class="portfolio-tools-right">
+            <input type="text" id="portfolio-search-input" class="portfolio-search-input" placeholder="Search projects..." oninput="handlePortfolioSearch(this.value)">
+            
+            <!-- PDF Summary Exporter Button -->
+            <button type="button" class="btn btn-sm btn-outline" onclick="exportPortfolioToPdf()" title="Export or print selected portfolio items as PDF catalog">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>Export Portfolio PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Portfolio Items Grid (Empty container, filled dynamically) -->
+        <div id="portfolio-grid" class="portfolio-grid" aria-live="polite">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Portfolio Pagination Controls -->
+        <div id="portfolio-pagination" class="pagination-wrap">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         CALL TO ACTION BANNER (CONTRAST DARK)
+         ======================================================================== -->
+    <section id="cta" class="cta-banner">
+      <div class="container cta-inner">
+        <h2 class="cta-title">Do you have Project Idea?<br>Let's discuss your project!</h2>
+        <p class="cta-subtitle">
+          Whether you need a distinctive brand identity, a fast interactive web app prototype, or conversion-focused copy that closes deals, let's create something extraordinary together.
+        </p>
+        <a href="#contact" class="btn btn-cta-light">
+          <span>Let's Discuss Your Project</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         BLOG / INSIGHTS SECTION
+         ======================================================================== -->
+    <section id="blog" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Blog & Thoughts</span>
+          <h2 class="section-title">Creative Insights & Articles</h2>
+          <p class="section-subtitle">
+            Exploring the frontiers of visual branding, vibe coding workflows, and psychological copywriting principles.
+          </p>
+        </div>
+
+        <!-- Blog Grid Container -->
+        <div id="blog-grid" class="blog-grid" aria-live="polite">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Blog Pagination -->
+        <div id="blog-pagination" class="pagination-wrap">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         WHAT I DO (SERVICES) SECTION
+         ======================================================================== -->
+    <section id="services" class="section section-bg-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">What I Do?</span>
+          <h2 class="section-title">Comprehensive Creative Services</h2>
+          <p class="section-subtitle">
+            Tailored creative and technical solutions engineered to elevate brands from initial concept to high-performing digital reality.
+          </p>
+        </div>
+
+        <div id="services-grid" class="services-grid">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         HAPPY CLIENTS SECTION
+         ======================================================================== -->
+    <section id="clients" class="section">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 40px;">
+          <span class="section-tag">Happy Clients</span>
+          <h2 class="section-title" style="font-size: 2rem;">Collaborations & Trusted Partners</h2>
+          <p class="section-subtitle">
+            Proud to have collaborated with innovative startups, agencies, and forward-thinking creators.
+          </p>
+        </div>
+
+        <div id="clients-row" class="clients-row">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TESTIMONIALS SECTION (SLIDER/CAROUSEL)
+         ======================================================================== -->
+    <section id="testimonials" class="section section-bg-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Testimonials</span>
+          <h2 class="section-title">What Clients Say</h2>
+          <p class="section-subtitle">
+            Unfiltered feedback from founders, product managers, and creative directors who experienced our collaborative magic.
+          </p>
+        </div>
+
+        <div class="testimonial-container">
+          <div id="testimonial-card-wrap">
+            <!-- Dynamically populated current testimonial slide -->
+          </div>
+
+          <div class="testimonial-controls">
+            <button type="button" class="slider-btn" onclick="prevTestimonial()" aria-label="Previous Testimonial">‹</button>
+            <div id="testimonial-dots" class="slider-dots"></div>
+            <button type="button" class="slider-btn" onclick="nextTestimonial()" aria-label="Next Testimonial">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         CONTACT US SECTION
+         ======================================================================== -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Contact</span>
+          <h2 class="section-title">Let's Discuss Your Project</h2>
+          <p class="section-subtitle">
+            Have an ambitious idea, need a branding overhaul, or want to explore an interactive web app? Drop a note below!
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Contact Info Column -->
+          <div class="contact-info-card">
+            <div class="contact-info-header">
+              <h3>Get In Touch</h3>
+              <p>I usually respond within 24 business hours. Let's build something remarkable.</p>
+            </div>
+
+            <div class="contact-details-list">
+              <div class="contact-detail-item">
+                <div class="contact-icon-box">✉️</div>
+                <div class="contact-detail-content">
+                  <span class="contact-detail-label">Email</span>
+                  <a id="contact-email-val" href="mailto:archana.creative@example.com" class="contact-detail-value">archana.creative@example.com</a>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-icon-box">📞</div>
+                <div class="contact-detail-content">
+                  <span class="contact-detail-label">Phone / WhatsApp</span>
+                  <a id="contact-phone-val" href="tel:+6281289904521" class="contact-detail-value">+62 812 8990 4521</a>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-icon-box">📍</div>
+                <div class="contact-detail-content">
+                  <span class="contact-detail-label">Location</span>
+                  <span id="contact-loc-val" class="contact-detail-value">Jakarta, Indonesia & Remote Worldwide</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="contact-detail-label" style="display: block; margin-bottom: 12px;">Connect with Archana</span>
+              <div class="contact-social-links">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+                <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Behance">be</a>
+                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Dribbble">dr</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Contact Form -->
+          <div class="contact-form-card">
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;">Send a Message</h3>
+            
+            <form id="contact-form" onsubmit="handleContactFormSubmit(event)">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">Your Full Name *</label>
+                <input type="text" id="contact-name" class="form-control" placeholder="e.g. Maya Chen" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">Email Address *</label>
+                <input type="email" id="contact-email" class="form-control" placeholder="e.g. maya@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-subject">Project Subject *</label>
+                <input type="text" id="contact-subject" class="form-control" placeholder="e.g. Brand Identity & Vibe Coding Web App" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Tell me about your project *</label>
+                <textarea id="contact-message" class="form-control" placeholder="Describe your vision, timeline, and goals..." required></textarea>
+              </div>
+
+              <div id="contact-form-feedback" style="margin-bottom: 16px; font-size: 0.92rem; font-weight: 600; display: none;"></div>
+
+              <button type="submit" id="btn-submit-message" class="btn btn-primary" style="width: 100%;">
+                <span>Send Message to Archana</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER (CONTRAST DARK)
+       ======================================================================== -->
+  <footer class="footer-wrap">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="brand-logo">
+            <div class="brand-icon">A</div>
+            <span>Archana</span>
+          </a>
+          <p class="footer-bio">
+            Bridging aesthetic design, rapid AI vibe coding, and high-converting copy to construct iconic digital experiences.
+          </p>
+          <div class="contact-social-links">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" style="background: var(--bg-dark-card); border-color: var(--bg-dark-border); color: #fff;" aria-label="LinkedIn">in</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" style="background: var(--bg-dark-card); border-color: var(--bg-dark-border); color: #fff;" aria-label="GitHub">gh</a>
+            <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="social-icon-btn" style="background: var(--bg-dark-card); border-color: var(--bg-dark-border); color: #fff;" aria-label="Behance">be</a>
+            <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" style="background: var(--bg-dark-card); border-color: var(--bg-dark-border); color: #fff;" aria-label="Dribbble">dr</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Quick Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero" class="footer-link">Home</a></li>
+            <li><a href="#about" class="footer-link">About Archana</a></li>
+            <li><a href="#process" class="footer-link">Work Process</a></li>
+            <li><a href="#portfolio" class="footer-link">Portfolio & Works</a></li>
+            <li><a href="#blog" class="footer-link">Creative Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Expertise</h4>
+          <ul class="footer-links-list">
+            <li><a href="#services" class="footer-link">Brand Identity Design</a></li>
+            <li><a href="#services" class="footer-link">Vibe Coding Web Apps</a></li>
+            <li><a href="#services" class="footer-link">Conversion Copywriting</a></li>
+            <li><a href="#contact" class="footer-link">Hire / Collaborate</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Archana. All rights reserved. Crafted with Vibe Coding & Precision Design.
+        </div>
+        <div style="display: flex; gap: 20px;">
+          <a href="#" onclick="event.preventDefault(); openCvModal();" class="footer-link">View CV</a>
+          <a href="#" onclick="event.preventDefault(); toggleAdminLogin();" class="footer-link">CMS Access</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Admin CMS Access Button -->
+  <button type="button" class="floating-admin-btn" id="btn-floating-admin" onclick="toggleAdminLogin()" aria-label="Open Admin CMS">
+    <div class="pulse-ring"></div>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+  </button>
+
+  <!-- Google Apps Script Modular Modals Include -->
+  <?!= HtmlService.createHtmlOutputFromFile('modals').getContent(); ?>
+
+  <!-- Google Apps Script Modular JavaScript Include -->
+  <?!= HtmlService.createHtmlOutputFromFile('js').getContent(); ?>
+</body>
+</html>
