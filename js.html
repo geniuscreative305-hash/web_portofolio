@@ -1,1 +1,1801 @@
+<script>
+/**
+ * js.html
+ * Archana Portfolio & CMS - Core Client Logic & Safe API Wrappers
+ * Graphic Design | Vibe Coding | Copywriting
+ */
 
+// ==========================================================================
+// 1. GLOBAL STATE & LOCAL CACHE (GEMINI CANVAS / STANDALONE READY)
+// ==========================================================================
+var AppState = {
+  isAdmin: false,
+  profile: {
+    HeroTitle: "Hello, I'm Archana",
+    HeroSub: "Graphic Designer, Vibe Coder & Copywriter",
+    BioText: "Synthesizing visual elegance, AI-driven vibe coding logic, and high-converting storytelling to build digital brands that captivate and convert.",
+    StatYears: "5+",
+    StatProjects: "120+",
+    StatClients: "85+",
+    ContactEmail: "archana.creative@example.com",
+    ContactPhone: "+62 812 8990 4521",
+    ContactLocation: "Jakarta, Indonesia & Remote Worldwide",
+    ProfileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    AboutTitle: "Crafting Experiences Where Art, AI & Storytelling Intersect",
+    AboutDesc: "I combine aesthetic graphic design principles with vibe coding speed and conversion-oriented copywriting. Whether designing sleek brand visual identities, building interactive modern web interfaces with AI copilot workflows, or crafting words that evoke emotion and drive sales, I bridge the gap between creative imagination and digital execution.",
+    AdminPIN: "archana123"
+  },
+  services: [
+    {
+      ServiceID: "SRV-001",
+      Title: "Brand Identity & Graphic Design",
+      Description: "Comprehensive visual identity systems, bespoke logo design, brand guidelines, typography curation, and high-impact marketing collateral.",
+      Icon: "palette",
+      SortOrder: 1
+    },
+    {
+      ServiceID: "SRV-002",
+      Title: "Interactive Vibe Coding Web Apps",
+      Description: "Rapid prototyping and full-stack interactive micro-apps powered by modern AI-assisted vibe coding workflows, tailored design, and dynamic interfaces.",
+      Icon: "code",
+      SortOrder: 2
+    },
+    {
+      ServiceID: "SRV-003",
+      Title: "High-Converting Copywriting",
+      Description: "Strategic narrative architecture, landing page copy, email sequences, and brand voice guidelines calibrated for maximum customer conversion.",
+      Icon: "feather",
+      SortOrder: 3
+    }
+  ],
+  process: [
+    {
+      ProcessID: "PRC-001",
+      StepNumber: 1,
+      Title: "Research & Strategy",
+      Description: "Deep discovery into target audience psychology, brand positioning, competitor matrix, and technical requirements.",
+      Icon: "compass"
+    },
+    {
+      ProcessID: "PRC-002",
+      StepNumber: 2,
+      Title: "Concept & Vibe Coding",
+      Description: "Exploration of interactive prototypes, AI-augmented code architecture, and structured layout blueprints.",
+      Icon: "cpu"
+    },
+    {
+      ProcessID: "PRC-003",
+      StepNumber: 3,
+      Title: "Visual & Copy Crafting",
+      Description: "Polishing high-fidelity aesthetic components, color harmony, responsive design, and persuasive sales narrative.",
+      Icon: "pen-tool"
+    },
+    {
+      ProcessID: "PRC-004",
+      StepNumber: 4,
+      Title: "Final Launch & Handover",
+      Description: "Cross-device QA testing, performance optimization, client walkthrough, and deployment ready for exponential growth.",
+      Icon: "rocket"
+    }
+  ],
+  portfolio: [
+    {
+      PortfolioID: "PORT-001",
+      Title: "Aura Living - Minimalist Brand Identity",
+      Category: "Graphic Design",
+      ImageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+      Summary: "Full brand identity guidelines, sustainable packaging, and visual design for a luxury homeware brand.",
+      DetailContent: "A comprehensive visual branding project for Aura Living, featuring a custom wordmark, earthen color palette, bespoke icon set, and luxury packaging designs crafted in Illustrator and Figma.",
+      ProjectUrl: "https://behance.net",
+      SortOrder: 1
+    },
+    {
+      PortfolioID: "PORT-002",
+      Title: "PulseVibe - AI Prompt-to-UI Studio",
+      Category: "Vibe Coding",
+      ImageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+      Summary: "Interactive web application that translates natural language UI specs into responsive frontend components.",
+      DetailContent: "PulseVibe was built using modern Vibe Coding techniques with instant reactive state, component export, and clean Vanilla CSS architecture for lightning-fast prototyping.",
+      ProjectUrl: "https://github.com",
+      SortOrder: 2
+    },
+    {
+      PortfolioID: "PORT-003",
+      Title: "Lumina SaaS - High-Converting Sales Page",
+      Category: "Copywriting",
+      ImageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+      Summary: "Conversion-focused landing page copy and customer onboarding flow that boosted trial conversions by 42%.",
+      DetailContent: "Researched customer friction points and synthesized a 5-part storytelling framework emphasizing product benefits over raw features, resulting in an immediate 42% lift in free-to-paid conversion.",
+      ProjectUrl: "https://example.com",
+      SortOrder: 3
+    },
+    {
+      PortfolioID: "PORT-004",
+      Title: "Solstice Kinetic - 3D Visual Poster Series",
+      Category: "Graphic Design",
+      ImageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+      Summary: "Exploration of chromatic aberrations, Swiss typographic hierarchy, and geometric layout compositions.",
+      DetailContent: "An experimental typography and visual design series exploring kinetic typography, vibrant gradient mesh transitions, and print-ready editorial compositions.",
+      ProjectUrl: "https://dribbble.com",
+      SortOrder: 4
+    },
+    {
+      PortfolioID: "PORT-005",
+      Title: "Zenith Finance - Interactive Wealth Dashboard",
+      Category: "Vibe Coding",
+      ImageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      Summary: "Responsive financial tracking web application with dynamic chart rendering, smart budgeting, and dark mode.",
+      DetailContent: "Developed end-to-end within 48 hours using AI-assisted vibe coding routines, optimized data filtering, lightweight charts, and zero dependency overhead.",
+      ProjectUrl: "https://zenith-finance.demo",
+      SortOrder: 5
+    },
+    {
+      PortfolioID: "PORT-006",
+      Title: "Koa Botanicals - E-Commerce Copy & Brand Voice",
+      Category: "Copywriting",
+      ImageUrl: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      Summary: "Holistic tone-of-voice guidebook, product descriptions, and nurture email drip series for organic skincare.",
+      DetailContent: "Established an organic, conversational, yet authoritative brand voice for Koa Botanicals that generated an 68% open rate and sustained customer loyalty across multiple product drops.",
+      ProjectUrl: "https://koabotanicals.demo",
+      SortOrder: 6
+    }
+  ],
+  blogs: [
+    {
+      BlogID: "BLG-001",
+      Title: "The Symbiosis of Graphic Design and Vibe Coding",
+      Category: "Vibe Coding",
+      ImageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+      Excerpt: "How pairing rapid AI coding assistants with solid visual aesthetics creates 10x faster shipping cycles.",
+      FullContent: "In the traditional product development cycle, designers and developers often encounter friction in handoffs. Vibe Coding dissolves this boundary: when a designer who understands grid systems, typography, and contrast codes with AI assistance, the output is not just functional, but visually mesmerizing and delightful to use.",
+      DatePublished: "2026-10-10",
+      ReadTime: "4 min read"
+    },
+    {
+      BlogID: "BLG-002",
+      Title: "Crafting Words That Sell: The 4P Copywriting Formula",
+      Category: "Copywriting",
+      ImageUrl: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+      Excerpt: "Picture, Promise, Prove, Push — a proven psychological blueprint to transform curious readers into buyers.",
+      FullContent: "Good design grabs attention, but persuasive copy seals the deal. The 4P framework begins with painting a vivid picture of the user's aspirational reality, establishing an unshakeable promise, proving credibility with data, and delivering an irresistible push to take action right now.",
+      DatePublished: "2026-10-05",
+      ReadTime: "5 min read"
+    },
+    {
+      BlogID: "BLG-003",
+      Title: "Color Psychology & Micro-Interactions in Modern UI",
+      Category: "Graphic Design",
+      ImageUrl: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=80",
+      Excerpt: "Why subtle violet gradients and snappy physics-based hover states create an unforgettable digital impression.",
+      FullContent: "Color evokes primal neurological responses. Soft purples and violets balance technological wisdom with creative luxury. Combining curated violet hues with micro-transitions (subtle lifts, glowing focus rings) elevates an ordinary web app to an emotional digital experience.",
+      DatePublished: "2026-09-28",
+      ReadTime: "6 min read"
+    }
+  ],
+  testimonials: [
+    {
+      TestimonialID: "TST-001",
+      ClientName: "Marcus Sterling",
+      ClientRole: "Founder & CEO at Lumina Studio",
+      ClientPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      Rating: "5",
+      QuoteText: "Archana's rare combination of razor-sharp aesthetic sense and vibe coding capabilities blew our team away. She built our interactive web portal in days with a level of design polish usually found in top Silicon Valley agencies."
+    },
+    {
+      TestimonialID: "TST-002",
+      ClientName: "Elena Rostova",
+      ClientRole: "Head of Brand at Velvet Bloom",
+      ClientPhoto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80",
+      Rating: "5",
+      QuoteText: "The copy Archana wrote for our product launch converted 40% higher than our previous agency's work. She truly understands human psychology and how to craft stories that resonate deeply."
+    },
+    {
+      TestimonialID: "TST-003",
+      ClientName: "Darian Vance",
+      ClientRole: "Product Lead at NexaFlow",
+      ClientPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+      Rating: "5",
+      QuoteText: "Archana delivers exceptional results on every front. From our logo refresh to our interactive dashboard prototype, she executes with velocity, poise, and meticulous attention to detail."
+    }
+  ],
+  clients: [
+    { ClientID: "CLI-001", ClientName: "Spotify", LogoUrl: "https://cdn.simpleicons.org/spotify/7c3aed", SortOrder: 1 },
+    { ClientID: "CLI-002", ClientName: "Slack", LogoUrl: "https://cdn.simpleicons.org/slack/7c3aed", SortOrder: 2 },
+    { ClientID: "CLI-003", ClientName: "Linear", LogoUrl: "https://cdn.simpleicons.org/linear/7c3aed", SortOrder: 3 },
+    { ClientID: "CLI-004", ClientName: "Figma", LogoUrl: "https://cdn.simpleicons.org/figma/7c3aed", SortOrder: 4 },
+    { ClientID: "CLI-005", ClientName: "Notion", LogoUrl: "https://cdn.simpleicons.org/notion/7c3aed", SortOrder: 5 },
+    { ClientID: "CLI-006", ClientName: "Stripe", LogoUrl: "https://cdn.simpleicons.org/stripe/7c3aed", SortOrder: 6 }
+  ],
+  messages: [],
+  // Filtering & Pagination State
+  currentCategory: "All",
+  searchKeyword: "",
+  portfolioPage: 1,
+  portfolioPageSize: 6,
+  blogPage: 1,
+  blogPageSize: 6,
+  activeTestimonialIndex: 0
+};
+
+// ==========================================================================
+// 2. SAFE STRING & ESCAPING HELPERS (CLASSIC STRING CONCATENATION ONLY)
+// ==========================================================================
+function escapeHtml(text) {
+  if (text === null || text === undefined) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeGet(val, fallback) {
+  if (val === null || val === undefined || String(val).trim() === '') {
+    return fallback !== undefined ? fallback : '';
+  }
+  return String(val);
+}
+
+/**
+ * Automatically converts Google Drive viewer/sharing URLs into direct CDN image URLs
+ */
+function formatDirectImageUrl(url) {
+  if (url === null || url === undefined || String(url).trim() === '') return '';
+  var str = String(url).trim();
+  // Check for Google Drive file link: /file/d/FILE_ID
+  var match = str.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=w1200';
+  }
+  // Check for Google Drive query param link: ?id=FILE_ID or &id=FILE_ID
+  var matchId = str.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (matchId && matchId[1] && str.indexOf('drive.google.com') !== -1) {
+    return 'https://drive.google.com/thumbnail?id=' + matchId[1] + '&sz=w1200';
+  }
+  return str;
+}
+
+// ==========================================================================
+// 3. TOAST NOTIFICATIONS
+// ==========================================================================
+function showToast(message, type) {
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+
+  var toastType = type || 'info';
+  var toast = document.createElement('div');
+  toast.className = 'toast toast-' + toastType;
+
+  var icon = '✨';
+  if (toastType === 'success') icon = '✅';
+  if (toastType === 'error') icon = '⚠️';
+
+  toast.innerHTML = '<span>' + icon + '</span><span>' + escapeHtml(message) + '</span>';
+  container.appendChild(toast);
+
+  setTimeout(function() {
+    toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    setTimeout(function() {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 400);
+  }, 3500);
+}
+
+// ==========================================================================
+// 4. GOOGLE SCRIPT API SAFE CALLER (WITH GEMINI CANVAS FALLBACK)
+// ==========================================================================
+function isGasAvailable() {
+  return typeof google !== 'undefined' && google.script && google.script.run;
+}
+
+function callBackend(funcName, args, onSuccess, onFailure) {
+  if (isGasAvailable()) {
+    var runner = google.script.run
+      .withSuccessHandler(function(res) {
+        if (typeof onSuccess === 'function') onSuccess(res);
+      })
+      .withFailureHandler(function(err) {
+        console.error('GAS Backend Error in ' + funcName + ':', err);
+        showToast('Backend Error: ' + (err.message || err), 'error');
+        if (typeof onFailure === 'function') onFailure(err);
+      });
+
+    if (runner[funcName]) {
+      runner[funcName].apply(runner, args || []);
+    } else {
+      console.warn('Backend function ' + funcName + ' not found on google.script.run.');
+      if (typeof onFailure === 'function') {
+        onFailure(new Error('Function ' + funcName + ' not found on backend.'));
+      }
+    }
+  } else {
+    // Canvas / Local Mode Fallback
+    console.log('[Local / Canvas Mode] Emulating backend call to: ' + funcName, args);
+    setTimeout(function() {
+      var mockResult = emulateLocalBackend(funcName, args);
+      if (typeof onSuccess === 'function') onSuccess(mockResult);
+    }, 200);
+  }
+}
+
+/**
+ * Local simulation when Google Apps Script is not present (e.g. Gemini Canvas preview)
+ */
+function emulateLocalBackend(funcName, args) {
+  if (funcName === 'getAllAppData') {
+    return {
+      success: true,
+      data: {
+        profile: AppState.profile,
+        services: AppState.services,
+        process: AppState.process,
+        portfolio: {
+          items: AppState.portfolio.slice(0, 6),
+          totalItems: AppState.portfolio.length,
+          totalPages: Math.ceil(AppState.portfolio.length / 6),
+          currentPage: 1
+        },
+        blogs: {
+          items: AppState.blogs.slice(0, 6),
+          totalItems: AppState.blogs.length,
+          totalPages: Math.ceil(AppState.blogs.length / 6),
+          currentPage: 1
+        },
+        testimonials: AppState.testimonials,
+        clients: AppState.clients
+      }
+    };
+  } else if (funcName === 'verifyAdminPassword') {
+    var pin = (args && args[0]) ? String(args[0]).trim() : '';
+    if (pin === AppState.profile.AdminPIN) {
+      return { success: true, message: 'Authenticated successfully.' };
+    }
+    return { success: false, message: 'Invalid Admin PIN.' };
+  } else if (funcName === 'updateProfileConfig') {
+    var cfg = args[0] || {};
+    for (var k in cfg) {
+      if (cfg.hasOwnProperty(k)) {
+        AppState.profile[k] = String(cfg[k]);
+      }
+    }
+    return { success: true, message: 'Profile updated.' };
+  } else if (funcName === 'submitContactMessage') {
+    var msg = args[0] || {};
+    var now = new Date();
+    var y = now.getFullYear();
+    var m = ('0' + (now.getMonth() + 1)).slice(-2);
+    var d = ('0' + now.getDate()).slice(-2);
+    var todayStr = '' + y + m + d;
+    var nextSeq = ('000' + (AppState.messages.length + 1)).slice(-4);
+    var msgId = 'MSG-' + todayStr + '-' + nextSeq;
+
+    var record = {
+      MessageID: msgId,
+      Timestamp: now.toISOString().replace('T', ' ').substring(0, 19),
+      SenderName: msg.SenderName,
+      SenderEmail: msg.SenderEmail,
+      Subject: msg.Subject,
+      MessageText: msg.MessageText,
+      Status: 'New'
+    };
+    AppState.messages.unshift(record);
+    return {
+      success: true,
+      message: 'Message sent! Sequential ID: ' + msgId,
+      messageId: msgId
+    };
+  } else if (funcName === 'getMessagesList') {
+    return {
+      success: true,
+      items: AppState.messages,
+      totalItems: AppState.messages.length,
+      totalPages: 1,
+      currentPage: 1
+    };
+  } else if (funcName === 'updateMessageStatus') {
+    var targetId = args[0];
+    var status = args[1];
+    for (var i = 0; i < AppState.messages.length; i++) {
+      if (AppState.messages[i].MessageID === targetId) {
+        AppState.messages[i].Status = status;
+        break;
+      }
+    }
+    return { success: true, message: 'Status updated.' };
+  } else if (funcName === 'uploadImageToDrive') {
+    var b64 = (args && args[0]) ? args[0] : '';
+    return { success: true, url: b64, message: 'Local upload simulated.' };
+  } else if (funcName.indexOf('save') === 0) {
+    return { success: true, message: 'Saved successfully.' };
+  } else if (funcName.indexOf('delete') === 0) {
+    return { success: true, message: 'Deleted successfully.' };
+  }
+  return { success: true };
+}
+
+// ==========================================================================
+// 5. INITIALIZATION & DATA BINDING
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', function() {
+  initApp();
+  initTestimonialInterval();
+  initNavigationScrollSpy();
+});
+
+function initApp() {
+  // Check local storage for persistent admin session in Canvas / standalone
+  var savedAdmin = localStorage.getItem('archana_admin_active');
+  if (savedAdmin === 'true') {
+    setAdminModeActive(true);
+  }
+
+  // Request App Data from GAS Backend
+  callBackend('getAllAppData', [], function(res) {
+    if (res && res.success && res.data) {
+      if (res.data.profile) {
+        AppState.profile = Object.assign({}, AppState.profile, res.data.profile);
+      }
+      if (res.data.services && res.data.services.length) {
+        AppState.services = res.data.services;
+      }
+      if (res.data.process && res.data.process.length) {
+        AppState.process = res.data.process;
+      }
+      if (res.data.portfolio && res.data.portfolio.items) {
+        AppState.portfolio = res.data.portfolio.items;
+      }
+      if (res.data.blogs && res.data.blogs.length) {
+        AppState.blogs = res.data.blogs.items || res.data.blogs;
+      }
+      if (res.data.testimonials && res.data.testimonials.length) {
+        AppState.testimonials = res.data.testimonials;
+      }
+      if (res.data.clients && res.data.clients.length) {
+        AppState.clients = res.data.clients;
+      }
+    }
+    renderAllViews();
+  }, function(err) {
+    renderAllViews();
+  });
+}
+
+function renderAllViews() {
+  renderProfileData();
+  renderProcessGrid();
+  renderPortfolioGrid();
+  renderBlogGrid();
+  renderServicesGrid();
+  renderClientsRow();
+  renderTestimonials();
+}
+
+// ==========================================================================
+// 6. RENDER DOM COMPONENTS (STRICT CLASSIC CONCATENATION ONLY - NO BACKTICK NESTING)
+// ==========================================================================
+
+function renderProfileData() {
+  var p = AppState.profile;
+  if (!p) return;
+
+  var heroTitleEl = document.getElementById('hero-title-text');
+  if (heroTitleEl) {
+    heroTitleEl.innerHTML = 'Hello, I\'m <span class="gradient-text">Archana</span>';
+  }
+  var heroSubEl = document.getElementById('hero-sub-text');
+  if (heroSubEl) heroSubEl.textContent = safeGet(p.HeroSub, 'Graphic Designer, Vibe Coder & Copywriter');
+
+  var heroBioEl = document.getElementById('hero-bio-text');
+  if (heroBioEl) heroBioEl.textContent = safeGet(p.BioText);
+
+  var statYears = document.getElementById('stat-years');
+  if (statYears) statYears.textContent = safeGet(p.StatYears, '5+');
+
+  var statProjects = document.getElementById('stat-projects');
+  if (statProjects) statProjects.textContent = safeGet(p.StatProjects, '120+');
+
+  var statClients = document.getElementById('stat-clients');
+  if (statClients) statClients.textContent = safeGet(p.StatClients, '85+');
+
+  var heroAvatar = document.getElementById('hero-avatar-img');
+  if (heroAvatar && p.ProfileImage) heroAvatar.src = formatDirectImageUrl(p.ProfileImage);
+
+  var aboutPhoto = document.getElementById('about-photo-img');
+  if (aboutPhoto && p.ProfileImage) aboutPhoto.src = formatDirectImageUrl(p.ProfileImage);
+
+  var aboutTitle = document.getElementById('about-title-text');
+  if (aboutTitle) aboutTitle.textContent = safeGet(p.AboutTitle, 'Crafting Experiences Where Art, AI & Storytelling Intersect');
+
+  var aboutDesc = document.getElementById('about-desc-text');
+  if (aboutDesc) aboutDesc.textContent = safeGet(p.AboutDesc);
+
+  var contactEmailVal = document.getElementById('contact-email-val');
+  if (contactEmailVal) {
+    contactEmailVal.textContent = safeGet(p.ContactEmail, 'archana.creative@example.com');
+    contactEmailVal.href = 'mailto:' + safeGet(p.ContactEmail);
+  }
+  var printContactEmail = document.getElementById('print-contact-email');
+  if (printContactEmail) printContactEmail.textContent = safeGet(p.ContactEmail);
+
+  var contactPhoneVal = document.getElementById('contact-phone-val');
+  if (contactPhoneVal) {
+    contactPhoneVal.textContent = safeGet(p.ContactPhone, '+62 812 8990 4521');
+    contactPhoneVal.href = 'tel:' + safeGet(p.ContactPhone).replace(/\s+/g, '');
+  }
+  var printContactPhone = document.getElementById('print-contact-phone');
+  if (printContactPhone) printContactPhone.textContent = safeGet(p.ContactPhone);
+
+  var contactLocVal = document.getElementById('contact-loc-val');
+  if (contactLocVal) contactLocVal.textContent = safeGet(p.ContactLocation, 'Jakarta, Indonesia & Remote');
+}
+
+/**
+ * Render 4-step Work Process Grid
+ */
+function renderProcessGrid() {
+  var grid = document.getElementById('process-grid');
+  if (!grid) return;
+
+  var items = AppState.process || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    var stepNum = ('0' + safeGet(it.StepNumber, i + 1)).slice(-2);
+    var iconSymbol = '⚡';
+    if (it.Icon === 'compass') iconSymbol = '🧭';
+    if (it.Icon === 'cpu') iconSymbol = '⚙️';
+    if (it.Icon === 'pen-tool') iconSymbol = '✍️';
+    if (it.Icon === 'rocket') iconSymbol = '🚀';
+
+    html += '<div class="process-card">';
+    html +=   '<span class="process-step-pill">STEP ' + escapeHtml(stepNum) + '</span>';
+    html +=   '<div class="process-icon-box">' + iconSymbol + '</div>';
+    html +=   '<h3 class="process-title">' + escapeHtml(it.Title) + '</h3>';
+    html +=   '<p class="process-desc">' + escapeHtml(it.Description) + '</p>';
+    if (AppState.isAdmin) {
+      html += '<div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--border-light);">';
+      html +=   '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Process\', \'' + escapeHtml(it.ProcessID) + '\')">✏️ Edit Step</button>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  grid.innerHTML = html;
+}
+
+/**
+ * Render Portfolio Grid with Category Filtering & Search
+ */
+function renderPortfolioGrid() {
+  var grid = document.getElementById('portfolio-grid');
+  if (!grid) return;
+
+  var allItems = AppState.portfolio || [];
+  var cat = AppState.currentCategory;
+  var kw = AppState.searchKeyword.toLowerCase().trim();
+
+  var filtered = [];
+  for (var i = 0; i < allItems.length; i++) {
+    var it = allItems[i];
+    var matchCat = (cat === 'All' || it.Category === cat);
+    var matchKw = true;
+    if (kw) {
+      var t = (it.Title || '').toLowerCase();
+      var s = (it.Summary || '').toLowerCase();
+      var d = (it.DetailContent || '').toLowerCase();
+      matchKw = (t.indexOf(kw) !== -1 || s.indexOf(kw) !== -1 || d.indexOf(kw) !== -1);
+    }
+    if (matchCat && matchKw) {
+      filtered.push(it);
+    }
+  }
+
+  var size = AppState.portfolioPageSize;
+  var totalPages = Math.ceil(filtered.length / size) || 1;
+  if (AppState.portfolioPage > totalPages) AppState.portfolioPage = 1;
+
+  var startIdx = (AppState.portfolioPage - 1) * size;
+  var pageItems = filtered.slice(startIdx, startIdx + size);
+
+  if (pageItems.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">'
+      + '<p style="font-size: 1.2rem; font-weight: 600;">No projects found in this category.</p>'
+      + '<p style="font-size: 0.95rem; margin-top: 6px;">Try switching filters or clearing your search term.</p>'
+      + '</div>';
+    renderPaginationControls('portfolio-pagination', totalPages, AppState.portfolioPage, 'changePortfolioPage');
+    return;
+  }
+
+  var html = '';
+  for (var j = 0; j < pageItems.length; j++) {
+    var p = pageItems[j];
+    var imgUrl = formatDirectImageUrl(safeGet(p.ImageUrl, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'));
+
+    html += '<div class="portfolio-card">';
+    html +=   '<div class="portfolio-card-img-wrap">';
+    html +=     '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(p.Title) + '" class="portfolio-card-img" loading="lazy">';
+    html +=     '<span class="portfolio-cat-badge">' + escapeHtml(p.Category) + '</span>';
+    html +=   '</div>';
+    html +=   '<div class="portfolio-body">';
+    html +=     '<h3 class="portfolio-title">' + escapeHtml(p.Title) + '</h3>';
+    html +=     '<p class="portfolio-summary">' + escapeHtml(p.Summary) + '</p>';
+    html +=     '<div class="portfolio-footer">';
+    html +=       '<button type="button" class="portfolio-detail-link" onclick="openPortfolioDetail(\'' + escapeHtml(p.PortfolioID) + '\')">';
+    html +=         '<span>See Detail</span>';
+    html +=         '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+    html +=       '</button>';
+    if (AppState.isAdmin) {
+      html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Portfolio\', \'' + escapeHtml(p.PortfolioID) + '\')">✏️ Edit</button>';
+    }
+    html +=     '</div>';
+    html +=   '</div>';
+    html += '</div>';
+  }
+
+  grid.innerHTML = html;
+  renderPaginationControls('portfolio-pagination', totalPages, AppState.portfolioPage, 'changePortfolioPage');
+}
+
+/**
+ * Render Blog Grid
+ */
+function renderBlogGrid() {
+  var grid = document.getElementById('blog-grid');
+  if (!grid) return;
+
+  var allBlogs = AppState.blogs || [];
+  var html = '';
+
+  for (var i = 0; i < allBlogs.length; i++) {
+    var b = allBlogs[i];
+    var imgUrl = formatDirectImageUrl(safeGet(b.ImageUrl, 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80'));
+
+    html += '<article class="blog-card">';
+    html +=   '<div class="blog-img-wrap">';
+    html +=     '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(b.Title) + '" class="blog-img" loading="lazy">';
+    html +=     '<span class="blog-meta-badge">' + escapeHtml(b.Category) + '</span>';
+    html +=   '</div>';
+    html +=   '<div class="blog-content">';
+    html +=     '<div class="blog-meta-info">';
+    html +=       '<span>' + escapeHtml(b.DatePublished) + '</span>';
+    html +=       '<span>•</span>';
+    html +=       '<span>' + escapeHtml(b.ReadTime) + '</span>';
+    html +=     '</div>';
+    html +=     '<h3 class="blog-title">' + escapeHtml(b.Title) + '</h3>';
+    html +=     '<p class="blog-excerpt">' + escapeHtml(b.Excerpt) + '</p>';
+    html +=     '<div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">';
+    html +=       '<button type="button" class="blog-read-link" onclick="openBlogDetail(\'' + escapeHtml(b.BlogID) + '\')">';
+    html +=         '<span>Read Article</span>';
+    html +=         '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+    html +=       '</button>';
+    if (AppState.isAdmin) {
+      html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Blogs\', \'' + escapeHtml(b.BlogID) + '\')">✏️ Edit</button>';
+    }
+    html +=     '</div>';
+    html +=   '</div>';
+    html += '</article>';
+  }
+
+  grid.innerHTML = html;
+}
+
+/**
+ * Render What I Do (Services)
+ */
+function renderServicesGrid() {
+  var grid = document.getElementById('services-grid');
+  if (!grid) return;
+
+  var items = AppState.services || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var s = items[i];
+    var iconSym = '🎨';
+    if (s.Icon === 'code') iconSym = '⚡';
+    if (s.Icon === 'feather') iconSym = '✒️';
+
+    html += '<div class="service-card">';
+    html +=   '<div class="service-icon-box">' + iconSym + '</div>';
+    html +=   '<h3 class="service-title">' + escapeHtml(s.Title) + '</h3>';
+    html +=   '<p class="service-desc">' + escapeHtml(s.Description) + '</p>';
+    html +=   '<ul class="service-features">';
+    html +=     '<li class="service-feature-item"><span>✓</span> Custom tailored strategy</li>';
+    html +=     '<li class="service-feature-item"><span>✓</span> Rapid iteration & live feedback</li>';
+    html +=     '<li class="service-feature-item"><span>✓</span> Production-ready handoff</li>';
+    html +=   '</ul>';
+    if (AppState.isAdmin) {
+      html += '<div style="margin-top: 20px; padding-top: 14px; border-top: 1px dashed var(--border-light);">';
+      html +=   '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Services\', \'' + escapeHtml(s.ServiceID) + '\')">✏️ Edit Service</button>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  grid.innerHTML = html;
+}
+
+/**
+ * Render Happy Clients Row
+ */
+function renderClientsRow() {
+  var row = document.getElementById('clients-row');
+  if (!row) return;
+
+  var items = AppState.clients || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var c = items[i];
+    html += '<div class="client-logo-card" title="' + escapeHtml(c.ClientName) + '">';
+    html +=   '<img src="' + escapeHtml(c.LogoUrl) + '" alt="' + escapeHtml(c.ClientName) + '" class="client-logo-img" loading="lazy">';
+    if (AppState.isAdmin) {
+      html += '<button type="button" class="btn btn-sm" style="padding: 2px 6px; font-size: 0.7rem; margin-left: 8px;" onclick="openItemEditor(\'Clients\', \'' + escapeHtml(c.ClientID) + '\')">✏️</button>';
+    }
+    html += '</div>';
+  }
+
+  row.innerHTML = html;
+}
+
+/**
+ * Render Testimonial Carousel
+ */
+function renderTestimonials() {
+  var wrap = document.getElementById('testimonial-card-wrap');
+  var dotsContainer = document.getElementById('testimonial-dots');
+  if (!wrap) return;
+
+  var list = AppState.testimonials || [];
+  if (list.length === 0) {
+    wrap.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No testimonials yet.</p>';
+    return;
+  }
+
+  var idx = AppState.activeTestimonialIndex % list.length;
+  var t = list[idx];
+
+  var html = '<div class="testimonial-card">';
+  html +=   '<span class="quote-icon">“</span>';
+  html +=   '<p class="testimonial-quote">' + escapeHtml(t.QuoteText) + '</p>';
+  html +=   '<div class="testimonial-client">';
+  html +=     '<img src="' + escapeHtml(t.ClientPhoto) + '" alt="' + escapeHtml(t.ClientName) + '" class="testimonial-avatar">';
+  html +=     '<div class="testimonial-info">';
+  html +=       '<div class="testimonial-name">' + escapeHtml(t.ClientName) + '</div>';
+  html +=       '<div class="testimonial-role">' + escapeHtml(t.ClientRole) + '</div>';
+  html +=       '<div class="testimonial-stars">★★★★★</div>';
+  html +=     '</div>';
+  html +=   '</div>';
+  if (AppState.isAdmin) {
+    html += '<div style="margin-top: 20px;">';
+    html +=   '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Testimonials\', \'' + escapeHtml(t.TestimonialID) + '\')">✏️ Edit Testimonial</button>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  wrap.innerHTML = html;
+
+  if (dotsContainer) {
+    var dotsHtml = '';
+    for (var d = 0; d < list.length; d++) {
+      var activeClass = (d === idx) ? ' active' : '';
+      dotsHtml += '<div class="slider-dot' + activeClass + '" onclick="setTestimonialIndex(' + d + ')"></div>';
+    }
+    dotsContainer.innerHTML = dotsHtml;
+  }
+}
+
+function nextTestimonial() {
+  var total = (AppState.testimonials || []).length;
+  if (total <= 1) return;
+  AppState.activeTestimonialIndex = (AppState.activeTestimonialIndex + 1) % total;
+  renderTestimonials();
+}
+
+function prevTestimonial() {
+  var total = (AppState.testimonials || []).length;
+  if (total <= 1) return;
+  AppState.activeTestimonialIndex = (AppState.activeTestimonialIndex - 1 + total) % total;
+  renderTestimonials();
+}
+
+function setTestimonialIndex(i) {
+  AppState.activeTestimonialIndex = i;
+  renderTestimonials();
+}
+
+function initTestimonialInterval() {
+  setInterval(function() {
+    nextTestimonial();
+  }, 7000);
+}
+
+// ==========================================================================
+// 7. FILTERING, SEARCH & PDF SUMMARY EXPORTER
+// ==========================================================================
+function handleCategoryFilter(cat) {
+  AppState.currentCategory = cat;
+  AppState.portfolioPage = 1;
+
+  var buttons = document.querySelectorAll('#portfolio-filters .filter-btn');
+  for (var i = 0; i < buttons.length; i++) {
+    var btn = buttons[i];
+    if (btn.getAttribute('data-category') === cat) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  }
+
+  renderPortfolioGrid();
+}
+
+function handlePortfolioSearch(val) {
+  AppState.searchKeyword = val || '';
+  AppState.portfolioPage = 1;
+  renderPortfolioGrid();
+}
+
+function changePortfolioPage(page) {
+  AppState.portfolioPage = page;
+  renderPortfolioGrid();
+  var portSection = document.getElementById('portfolio');
+  if (portSection) {
+    portSection.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function renderPaginationControls(containerId, totalPages, currentPage, callbackName) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+
+  if (totalPages <= 1) {
+    container.innerHTML = '';
+    return;
+  }
+
+  var html = '';
+  var prevDisabled = (currentPage === 1) ? ' disabled' : '';
+  html += '<button type="button" class="page-btn"' + prevDisabled + ' onclick="' + callbackName + '(' + (currentPage - 1) + ')">‹</button>';
+
+  for (var p = 1; p <= totalPages; p++) {
+    var activeClass = (p === currentPage) ? ' active' : '';
+    html += '<button type="button" class="page-btn' + activeClass + '" onclick="' + callbackName + '(' + p + ')">' + p + '</button>';
+  }
+
+  var nextDisabled = (currentPage === totalPages) ? ' disabled' : '';
+  html += '<button type="button" class="page-btn"' + nextDisabled + ' onclick="' + callbackName + '(' + (currentPage + 1) + ')">›</button>';
+
+  container.innerHTML = html;
+}
+
+/**
+ * PDF Summary Exporter for selected works
+ * Uses browser window.print() with custom print media stylesheet
+ */
+function exportPortfolioToPdf() {
+  showToast('Preparing portfolio catalog printable view...', 'info');
+  setTimeout(function() {
+    window.print();
+  }, 300);
+}
+
+// ==========================================================================
+// 8. INTERACTIVE MODALS HANDLERS
+// ==========================================================================
+function openPortfolioDetail(id) {
+  var item = null;
+  for (var i = 0; i < AppState.portfolio.length; i++) {
+    if (AppState.portfolio[i].PortfolioID === id) {
+      item = AppState.portfolio[i];
+      break;
+    }
+  }
+  if (!item) return;
+
+  document.getElementById('portfolio-modal-title').textContent = item.Title;
+  document.getElementById('portfolio-modal-cat').textContent = item.Category;
+  document.getElementById('portfolio-modal-desc').textContent = item.DetailContent || item.Summary;
+  document.getElementById('portfolio-modal-img').src = formatDirectImageUrl(item.ImageUrl);
+  document.getElementById('portfolio-modal-tags').textContent = item.Category + ' • Archana Portfolio';
+  
+  var linkBtn = document.getElementById('portfolio-modal-link');
+  if (item.ProjectUrl) {
+    linkBtn.href = item.ProjectUrl;
+    linkBtn.style.display = 'inline-flex';
+  } else {
+    linkBtn.style.display = 'none';
+  }
+
+  openModal('modal-portfolio-detail');
+}
+
+function openBlogDetail(id) {
+  var item = null;
+  for (var i = 0; i < AppState.blogs.length; i++) {
+    if (AppState.blogs[i].BlogID === id) {
+      item = AppState.blogs[i];
+      break;
+    }
+  }
+  if (!item) return;
+
+  document.getElementById('blog-modal-title').textContent = item.Title;
+  document.getElementById('blog-modal-cat').textContent = item.Category;
+  document.getElementById('blog-modal-date').textContent = item.DatePublished;
+  document.getElementById('blog-modal-time').textContent = item.ReadTime;
+  document.getElementById('blog-modal-content').textContent = item.FullContent || item.Excerpt;
+  document.getElementById('blog-modal-img').src = formatDirectImageUrl(item.ImageUrl);
+
+  openModal('modal-blog-detail');
+}
+
+function openCvModal() {
+  openModal('modal-cv-download');
+}
+
+function openModal(id) {
+  var m = document.getElementById(id);
+  if (m) m.classList.add('active');
+}
+
+function closeAllModals() {
+  var modals = document.querySelectorAll('.modal-overlay');
+  for (var i = 0; i < modals.length; i++) {
+    modals[i].classList.remove('active');
+  }
+}
+
+// ==========================================================================
+// 9. CONTACT FORM SUBMISSION WITH REAL-TIME SEQUENTIAL ID GENERATION
+// ==========================================================================
+function handleContactFormSubmit(e) {
+  e.preventDefault();
+
+  var nameVal = document.getElementById('contact-name').value.trim();
+  var emailVal = document.getElementById('contact-email').value.trim();
+  var subjectVal = document.getElementById('contact-subject').value.trim();
+  var messageVal = document.getElementById('contact-message').value.trim();
+  var feedbackEl = document.getElementById('contact-form-feedback');
+  var submitBtn = document.getElementById('btn-submit-message');
+
+  if (!nameVal || !emailVal || !messageVal) {
+    showToast('Please fill in all required fields.', 'error');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span>Sending Message...</span>';
+
+  // Safe data extraction into primitive values
+  var payload = {
+    SenderName: String(nameVal),
+    SenderEmail: String(emailVal),
+    Subject: String(subjectVal),
+    MessageText: String(messageVal)
+  };
+
+  callBackend('submitContactMessage', [payload], function(res) {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<span>Send Message to Archana</span>';
+
+    if (res && res.success) {
+      document.getElementById('contact-form').reset();
+      feedbackEl.style.display = 'block';
+      feedbackEl.style.color = '#10b981';
+      feedbackEl.textContent = 'Thank you, ' + nameVal + '! Your message has been sent. Reference ID: ' + (res.messageId || 'MSG-SAVED');
+      showToast('Message sent! ID: ' + (res.messageId || 'Success'), 'success');
+    } else {
+      feedbackEl.style.display = 'block';
+      feedbackEl.style.color = '#ef4444';
+      feedbackEl.textContent = 'Error sending message: ' + (res.message || 'Unknown error');
+      showToast('Error sending message.', 'error');
+    }
+  }, function(err) {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<span>Send Message to Archana</span>';
+    feedbackEl.style.display = 'block';
+    feedbackEl.style.color = '#ef4444';
+    feedbackEl.textContent = 'Server connection failed.';
+  });
+}
+
+// ==========================================================================
+// 10. ADMIN AUTHENTICATION & CMS CONTROL CENTER
+// ==========================================================================
+function toggleAdminLogin() {
+  if (AppState.isAdmin) {
+    openAdminCmsModal();
+  } else {
+    document.getElementById('admin-login-error').style.display = 'none';
+    document.getElementById('admin-pin-input').value = '';
+    openModal('modal-admin-login');
+  }
+}
+
+function handleAdminLoginSubmit(e) {
+  e.preventDefault();
+  var pin = document.getElementById('admin-pin-input').value.trim();
+  var errEl = document.getElementById('admin-login-error');
+  var btn = document.getElementById('btn-admin-submit-login');
+
+  btn.disabled = true;
+  btn.textContent = 'Verifying...';
+
+  callBackend('verifyAdminPassword', [pin], function(res) {
+    btn.disabled = false;
+    btn.textContent = 'Unlock CMS';
+
+    if (res && res.success) {
+      setAdminModeActive(true);
+      closeAllModals();
+      showToast('Admin Mode unlocked! Full CMS editing enabled.', 'success');
+      openAdminCmsModal();
+    } else {
+      errEl.style.display = 'block';
+      errEl.textContent = res ? res.message : 'Invalid Admin PIN.';
+    }
+  }, function() {
+    btn.disabled = false;
+    btn.textContent = 'Unlock CMS';
+  });
+}
+
+function setAdminModeActive(active) {
+  AppState.isAdmin = active;
+  localStorage.setItem('archana_admin_active', active ? 'true' : 'false');
+
+  var adminBar = document.getElementById('admin-mode-bar');
+  var navAdminText = document.getElementById('nav-admin-text');
+
+  if (active) {
+    if (adminBar) adminBar.classList.add('active');
+    if (navAdminText) navAdminText.textContent = 'CMS Active';
+  } else {
+    if (adminBar) adminBar.classList.remove('active');
+    if (navAdminText) navAdminText.textContent = 'Admin';
+  }
+
+  // Re-render cards to show/hide inline edit buttons
+  renderAllViews();
+}
+
+function logoutAdmin() {
+  setAdminModeActive(false);
+  closeAllModals();
+  showToast('Logged out of Admin Mode.', 'info');
+}
+
+function openAdminCmsModal() {
+  populateCmsProfileForm();
+  loadCmsPortfolioTable();
+  loadCmsBlogsTable();
+  loadCmsServicesTable();
+  loadCmsProcessTable();
+  loadCmsTestimonialsTable();
+  loadCmsClientsTable();
+  loadCmsMessagesList();
+
+  openModal('modal-admin-cms');
+}
+
+function switchCmsTab(tabKey, btn) {
+  var panes = document.querySelectorAll('.cms-tab-pane');
+  for (var i = 0; i < panes.length; i++) {
+    panes[i].classList.remove('active');
+  }
+  var target = document.getElementById('cms-tab-' + tabKey);
+  if (target) target.classList.add('active');
+
+  var buttons = document.querySelectorAll('.cms-tabs .cms-tab-btn');
+  for (var j = 0; j < buttons.length; j++) {
+    buttons[j].classList.remove('active');
+  }
+  if (btn) btn.classList.add('active');
+}
+
+// ==========================================================================
+// UNIVERSAL IMAGE UPLOADER & CANVAS COMPRESSION (DEVICE TO GOOGLE DRIVE)
+// ==========================================================================
+function compressImageFile(file, maxWidth, maxHeight, quality, callback) {
+  if (!file) return callback(new Error("No file provided"));
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      var maxW = maxWidth || 1200;
+      var maxH = maxHeight || 1200;
+      var w = img.width;
+      var h = img.height;
+
+      if (w > maxW || h > maxH) {
+        var ratio = Math.min(maxW / w, maxH / h);
+        w = Math.round(w * ratio);
+        h = Math.round(h * ratio);
+      }
+
+      var canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+
+      var compressedBase64 = canvas.toDataURL('image/jpeg', quality || 0.82);
+      callback(null, compressedBase64);
+    };
+    img.onerror = function() {
+      callback(new Error("Gagal membaca gambar"));
+    };
+    img.src = e.target.result;
+  };
+  reader.onerror = function(err) {
+    callback(err);
+  };
+  reader.readAsDataURL(file);
+}
+
+function toggleProfileUrlInput() {
+  var inp = document.getElementById('cms-profile-img');
+  if (inp) {
+    inp.style.display = (inp.style.display === 'none' || inp.style.display === '') ? 'block' : 'none';
+    if (inp.style.display === 'block') inp.focus();
+  }
+}
+
+function syncProfileUrlToThumb(val) {
+  var thumb = document.getElementById('cms-profile-thumb');
+  if (thumb && val) thumb.src = val;
+}
+
+function handleProfileFileSelected(e) {
+  var file = e.target.files && e.target.files[0];
+  if (!file) return;
+
+  var statusEl = document.getElementById('cms-profile-status');
+  var thumb = document.getElementById('cms-profile-thumb');
+  var inputEl = document.getElementById('cms-profile-img');
+  var saveBtn = document.getElementById('btn-save-profile');
+
+  // Instant local preview
+  var tempReader = new FileReader();
+  tempReader.onload = function(ev) {
+    if (thumb) thumb.src = ev.target.result;
+  };
+  tempReader.readAsDataURL(file);
+
+  if (statusEl) {
+    statusEl.className = 'image-uploader-status uploading';
+    statusEl.textContent = 'Mengompresi & mengunggah ke Google Drive...';
+  }
+  if (saveBtn) saveBtn.disabled = true;
+
+  compressImageFile(file, 1200, 1200, 0.82, function(err, compressedBase64) {
+    if (err) {
+      if (statusEl) {
+        statusEl.className = 'image-uploader-status error';
+        statusEl.textContent = 'Gagal memproses gambar.';
+      }
+      if (saveBtn) saveBtn.disabled = false;
+      return;
+    }
+
+    callBackend('uploadImageToDrive', [compressedBase64, file.name, 'image/jpeg'], function(res) {
+      if (saveBtn) saveBtn.disabled = false;
+      if (res && res.success && res.url) {
+        if (inputEl) inputEl.value = res.url;
+        if (thumb) thumb.src = formatDirectImageUrl(res.url);
+        if (statusEl) {
+          statusEl.className = 'image-uploader-status success';
+          statusEl.textContent = '✓ Foto profil siap & tersimpan di Google Drive!';
+        }
+        showToast('Foto profil berhasil diunggah ke Google Drive!', 'success');
+      } else {
+        // Fallback: use compressed base64 so user is never stuck
+        if (inputEl) inputEl.value = compressedBase64;
+        if (thumb) thumb.src = compressedBase64;
+        if (statusEl) {
+          statusEl.className = 'image-uploader-status success';
+          statusEl.textContent = '✓ Foto siap disimpan (Mode Kompresi).';
+        }
+        showToast('Foto profil siap disimpan!', 'info');
+      }
+    }, function(backendErr) {
+      if (saveBtn) saveBtn.disabled = false;
+      if (inputEl) inputEl.value = compressedBase64;
+      if (thumb) thumb.src = compressedBase64;
+      if (statusEl) {
+        statusEl.className = 'image-uploader-status success';
+        statusEl.textContent = '✓ Foto siap disimpan (Mode Kompresi).';
+      }
+      showToast('Foto profil siap disimpan.', 'info');
+    });
+  });
+}
+
+function renderUniversalImageUploadMarkup(targetInputId, label, currentVal, required) {
+  var escapedVal = escapeHtml(safeGet(currentVal));
+  var isReq = required ? ' required' : '';
+  var placeholderImg = currentVal || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="%2394a3b8" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+
+  var out = '';
+  out += '<div class="form-group">';
+  out +=   '<label class="form-label">' + label + '</label>';
+  out +=   '<div class="image-uploader-box" id="box-' + targetInputId + '">';
+  out +=     '<div class="image-uploader-layout">';
+  out +=       '<img id="thumb-' + targetInputId + '" src="' + placeholderImg + '" alt="Preview" class="image-uploader-thumb">';
+  out +=       '<div class="image-uploader-controls">';
+  out +=         '<div class="image-uploader-btn-group">';
+  out +=           '<input type="file" id="picker-' + targetInputId + '" accept="image/*" style="display:none;" onchange="handleGenericFileUpload(event, \'' + targetInputId + '\')">';
+  out +=           '<button type="button" class="btn btn-sm btn-primary" onclick="document.getElementById(\'picker-' + targetInputId + '\').click()">';
+  out +=             '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>';
+  out +=             '<span>Pilih Foto dari Perangkat</span>';
+  out +=           '</button>';
+  out +=           '<button type="button" class="image-uploader-url-toggle" onclick="toggleGenericUrlInput(\'' + targetInputId + '\')">Atau input Link URL</button>';
+  out +=         '</div>';
+  out +=         '<div id="status-' + targetInputId + '" class="image-uploader-status">Bisa unggah langsung dari galeri HP atau laptop.</div>';
+  out +=         '<input type="text" id="' + targetInputId + '" class="form-control image-uploader-url-input" value="' + escapedVal + '" placeholder="https://..." style="display:none;" oninput="document.getElementById(\'thumb-' + targetInputId + '\').src=formatDirectImageUrl(this.value)">';
+  out +=       '</div>';
+  out +=     '</div>';
+  out +=   '</div>';
+  out += '</div>';
+  return out;
+}
+
+function toggleGenericUrlInput(targetInputId) {
+  var inp = document.getElementById(targetInputId);
+  if (inp) {
+    inp.style.display = (inp.style.display === 'none' || inp.style.display === '') ? 'block' : 'none';
+    if (inp.style.display === 'block') inp.focus();
+  }
+}
+
+function handleGenericFileUpload(e, targetInputId) {
+  var file = e.target.files && e.target.files[0];
+  if (!file) return;
+
+  var statusEl = document.getElementById('status-' + targetInputId);
+  var thumb = document.getElementById('thumb-' + targetInputId);
+  var inputEl = document.getElementById(targetInputId);
+  var saveBtn = document.getElementById('btn-item-editor-save');
+
+  // Instant local preview
+  var tempReader = new FileReader();
+  tempReader.onload = function(ev) {
+    if (thumb) thumb.src = ev.target.result;
+  };
+  tempReader.readAsDataURL(file);
+
+  if (statusEl) {
+    statusEl.className = 'image-uploader-status uploading';
+    statusEl.textContent = 'Mengompresi & mengunggah ke Google Drive...';
+  }
+  if (saveBtn) saveBtn.disabled = true;
+
+  compressImageFile(file, 1200, 1200, 0.82, function(err, compressedBase64) {
+    if (err) {
+      if (statusEl) {
+        statusEl.className = 'image-uploader-status error';
+        statusEl.textContent = 'Gagal memproses gambar.';
+      }
+      if (saveBtn) saveBtn.disabled = false;
+      return;
+    }
+
+    callBackend('uploadImageToDrive', [compressedBase64, file.name, 'image/jpeg'], function(res) {
+      if (saveBtn) saveBtn.disabled = false;
+      if (res && res.success && res.url) {
+        if (inputEl) inputEl.value = res.url;
+        if (thumb) thumb.src = formatDirectImageUrl(res.url);
+        if (statusEl) {
+          statusEl.className = 'image-uploader-status success';
+          statusEl.textContent = '✓ Gambar siap & tersimpan di Google Drive!';
+        }
+        showToast('Gambar berhasil diunggah ke Google Drive!', 'success');
+      } else {
+        if (inputEl) inputEl.value = compressedBase64;
+        if (thumb) thumb.src = compressedBase64;
+        if (statusEl) {
+          statusEl.className = 'image-uploader-status success';
+          statusEl.textContent = '✓ Gambar siap disimpan (Mode Kompresi).';
+        }
+        showToast('Gambar siap disimpan!', 'info');
+      }
+    }, function(backendErr) {
+      if (saveBtn) saveBtn.disabled = false;
+      if (inputEl) inputEl.value = compressedBase64;
+      if (thumb) thumb.src = compressedBase64;
+      if (statusEl) {
+        statusEl.className = 'image-uploader-status success';
+        statusEl.textContent = '✓ Gambar siap disimpan (Mode Kompresi).';
+      }
+      showToast('Gambar siap disimpan.', 'info');
+    });
+  });
+}
+
+// --- CMS TAB 1: Profile ---
+function populateCmsProfileForm() {
+  var p = AppState.profile;
+  document.getElementById('cms-hero-title').value = safeGet(p.HeroTitle);
+  document.getElementById('cms-hero-sub').value = safeGet(p.HeroSub);
+  document.getElementById('cms-bio-text').value = safeGet(p.BioText);
+  document.getElementById('cms-stat-years').value = safeGet(p.StatYears);
+  document.getElementById('cms-stat-projects').value = safeGet(p.StatProjects);
+  document.getElementById('cms-stat-clients').value = safeGet(p.StatClients);
+  document.getElementById('cms-contact-email').value = safeGet(p.ContactEmail);
+  document.getElementById('cms-contact-phone').value = safeGet(p.ContactPhone);
+  document.getElementById('cms-contact-loc').value = safeGet(p.ContactLocation);
+  document.getElementById('cms-profile-img').value = safeGet(p.ProfileImage);
+  var pThumb = document.getElementById('cms-profile-thumb');
+  if (pThumb && p.ProfileImage) pThumb.src = formatDirectImageUrl(p.ProfileImage);
+  document.getElementById('cms-about-title').value = safeGet(p.AboutTitle);
+  document.getElementById('cms-about-desc').value = safeGet(p.AboutDesc);
+}
+
+function handleCmsProfileSave(e) {
+  e.preventDefault();
+  var btn = document.getElementById('btn-save-profile');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  var updated = {
+    HeroTitle: document.getElementById('cms-hero-title').value.trim(),
+    HeroSub: document.getElementById('cms-hero-sub').value.trim(),
+    BioText: document.getElementById('cms-bio-text').value.trim(),
+    StatYears: document.getElementById('cms-stat-years').value.trim(),
+    StatProjects: document.getElementById('cms-stat-projects').value.trim(),
+    StatClients: document.getElementById('cms-stat-clients').value.trim(),
+    ContactEmail: document.getElementById('cms-contact-email').value.trim(),
+    ContactPhone: document.getElementById('cms-contact-phone').value.trim(),
+    ContactLocation: document.getElementById('cms-contact-loc').value.trim(),
+    ProfileImage: document.getElementById('cms-profile-img').value.trim(),
+    AboutTitle: document.getElementById('cms-about-title').value.trim(),
+    AboutDesc: document.getElementById('cms-about-desc').value.trim()
+  };
+
+  // Optimistic UI Update
+  AppState.profile = Object.assign({}, AppState.profile, updated);
+  renderProfileData();
+
+  callBackend('updateProfileConfig', [updated], function(res) {
+    btn.disabled = false;
+    btn.textContent = 'Save Profile Config';
+    showToast('Profile updated & synchronized with Google Sheets!', 'success');
+  }, function() {
+    btn.disabled = false;
+    btn.textContent = 'Save Profile Config';
+  });
+}
+
+// --- CMS TABLES POPULATION ---
+function loadCmsPortfolioTable() {
+  var tbody = document.getElementById('cms-table-portfolio-body');
+  if (!tbody) return;
+  var items = AppState.portfolio || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    html += '<tr>';
+    html +=   '<td style="font-weight: 600;">' + escapeHtml(it.Title) + '</td>';
+    html +=   '<td><span class="cms-badge cms-badge-primary">' + escapeHtml(it.Category) + '</span></td>';
+    html +=   '<td>' + escapeHtml(it.SortOrder) + '</td>';
+    html +=   '<td>';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Portfolio\', \'' + escapeHtml(it.PortfolioID) + '\')">Edit</button> ';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" style="color: #ef4444;" onclick="deleteCmsItem(\'Portfolio\', \'' + escapeHtml(it.PortfolioID) + '\')">Delete</button>';
+    html +=   '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function loadCmsBlogsTable() {
+  var tbody = document.getElementById('cms-table-blogs-body');
+  if (!tbody) return;
+  var items = AppState.blogs || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    html += '<tr>';
+    html +=   '<td style="font-weight: 600;">' + escapeHtml(it.Title) + '</td>';
+    html +=   '<td>' + escapeHtml(it.Category) + '</td>';
+    html +=   '<td>' + escapeHtml(it.DatePublished) + '</td>';
+    html +=   '<td>';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Blogs\', \'' + escapeHtml(it.BlogID) + '\')">Edit</button> ';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" style="color: #ef4444;" onclick="deleteCmsItem(\'Blogs\', \'' + escapeHtml(it.BlogID) + '\')">Delete</button>';
+    html +=   '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function loadCmsServicesTable() {
+  var tbody = document.getElementById('cms-table-services-body');
+  if (!tbody) return;
+  var items = AppState.services || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    html += '<tr>';
+    html +=   '<td style="font-weight: 600;">' + escapeHtml(it.Title) + '</td>';
+    html +=   '<td>' + escapeHtml(it.SortOrder) + '</td>';
+    html +=   '<td>';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Services\', \'' + escapeHtml(it.ServiceID) + '\')">Edit</button> ';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" style="color: #ef4444;" onclick="deleteCmsItem(\'Services\', \'' + escapeHtml(it.ServiceID) + '\')">Delete</button>';
+    html +=   '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function loadCmsProcessTable() {
+  var tbody = document.getElementById('cms-table-process-body');
+  if (!tbody) return;
+  var items = AppState.process || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    html += '<tr>';
+    html +=   '<td>Step ' + escapeHtml(it.StepNumber) + '</td>';
+    html +=   '<td style="font-weight: 600;">' + escapeHtml(it.Title) + '</td>';
+    html +=   '<td>';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Process\', \'' + escapeHtml(it.ProcessID) + '\')">Edit</button> ';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" style="color: #ef4444;" onclick="deleteCmsItem(\'Process\', \'' + escapeHtml(it.ProcessID) + '\')">Delete</button>';
+    html +=   '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function loadCmsTestimonialsTable() {
+  var tbody = document.getElementById('cms-table-testimonials-body');
+  if (!tbody) return;
+  var items = AppState.testimonials || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    html += '<tr>';
+    html +=   '<td style="font-weight: 600;">' + escapeHtml(it.ClientName) + '</td>';
+    html +=   '<td>' + escapeHtml(it.ClientRole) + '</td>';
+    html +=   '<td>' + escapeHtml(it.Rating) + ' ★</td>';
+    html +=   '<td>';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Testimonials\', \'' + escapeHtml(it.TestimonialID) + '\')">Edit</button> ';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" style="color: #ef4444;" onclick="deleteCmsItem(\'Testimonials\', \'' + escapeHtml(it.TestimonialID) + '\')">Delete</button>';
+    html +=   '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function loadCmsClientsTable() {
+  var tbody = document.getElementById('cms-table-clients-body');
+  if (!tbody) return;
+  var items = AppState.clients || [];
+  var html = '';
+
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    html += '<tr>';
+    html +=   '<td style="font-weight: 600;">' + escapeHtml(it.ClientName) + '</td>';
+    html +=   '<td><img src="' + escapeHtml(it.LogoUrl) + '" alt="logo" style="max-height: 24px;"></td>';
+    html +=   '<td>' + escapeHtml(it.SortOrder) + '</td>';
+    html +=   '<td>';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" onclick="openItemEditor(\'Clients\', \'' + escapeHtml(it.ClientID) + '\')">Edit</button> ';
+    html +=     '<button type="button" class="btn btn-sm btn-outline" style="color: #ef4444;" onclick="deleteCmsItem(\'Clients\', \'' + escapeHtml(it.ClientID) + '\')">Delete</button>';
+    html +=   '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function loadCmsMessagesList() {
+  var tbody = document.getElementById('cms-table-messages-body');
+  if (!tbody) return;
+
+  callBackend('getMessagesList', [1, 25], function(res) {
+    var items = (res && res.items) ? res.items : AppState.messages;
+    if (!items || items.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 20px;">No messages received yet.</td></tr>';
+      return;
+    }
+
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var m = items[i];
+      var isNew = (m.Status === 'New');
+      var badgeStyle = isNew ? 'cms-badge-new' : 'cms-badge-primary';
+
+      html += '<tr>';
+      html +=   '<td style="font-family: monospace; font-size: 0.8rem;">' + escapeHtml(m.MessageID) + '</td>';
+      html +=   '<td style="font-size: 0.8rem;">' + escapeHtml(m.Timestamp) + '</td>';
+      html +=   '<td><strong>' + escapeHtml(m.SenderName) + '</strong><br><small style="color: var(--text-muted);">' + escapeHtml(m.SenderEmail) + '</small></td>';
+      html +=   '<td>' + escapeHtml(m.Subject) + '</td>';
+      html +=   '<td style="max-width: 200px; font-size: 0.82rem;">' + escapeHtml(m.MessageText) + '</td>';
+      html +=   '<td><span class="cms-badge ' + badgeStyle + '">' + escapeHtml(m.Status) + '</span></td>';
+      html +=   '<td>';
+      if (isNew) {
+        html +=   '<button type="button" class="btn btn-sm btn-outline" onclick="markMessageStatus(\'' + escapeHtml(m.MessageID) + '\', \'Read\')">Mark Read</button>';
+      } else {
+        html +=   '<button type="button" class="btn btn-sm btn-outline" onclick="markMessageStatus(\'' + escapeHtml(m.MessageID) + '\', \'Archived\')">Archive</button>';
+      }
+      html +=   '</td>';
+      html += '</tr>';
+    }
+    tbody.innerHTML = html;
+  });
+}
+
+function markMessageStatus(id, newStatus) {
+  callBackend('updateMessageStatus', [id, newStatus], function(res) {
+    showToast('Message ' + id + ' updated to ' + newStatus, 'success');
+    loadCmsMessagesList();
+  });
+}
+
+// ==========================================================================
+// 11. REUSABLE GENERIC ITEM EDITOR (CREATE & EDIT ANY ENTITY)
+// ==========================================================================
+var currentEditorEntity = null;
+var currentEditorId = null;
+
+function openItemEditor(entity, id) {
+  currentEditorEntity = entity;
+  currentEditorId = id || null;
+
+  var titleEl = document.getElementById('item-editor-title');
+  var fieldsEl = document.getElementById('item-editor-fields');
+
+  var isEdit = (id !== null && id !== undefined && id !== '');
+  titleEl.textContent = (isEdit ? 'Edit ' : 'Add New ') + entity + (isEdit ? ' (' + id + ')' : '');
+
+  // Look up existing item if editing
+  var existing = null;
+  if (isEdit) {
+    var list = [];
+    if (entity === 'Portfolio') list = AppState.portfolio;
+    if (entity === 'Blogs') list = AppState.blogs;
+    if (entity === 'Services') list = AppState.services;
+    if (entity === 'Process') list = AppState.process;
+    if (entity === 'Testimonials') list = AppState.testimonials;
+    if (entity === 'Clients') list = AppState.clients;
+
+    var idKey = entity.substring(0, entity.length - 1) + 'ID';
+    if (entity === 'Process') idKey = 'ProcessID';
+    if (entity === 'Blogs') idKey = 'BlogID';
+
+    for (var i = 0; i < list.length; i++) {
+      if (list[i][idKey] === id || list[i].PortfolioID === id || list[i].ServiceID === id || list[i].ClientID === id || list[i].TestimonialID === id) {
+        existing = list[i];
+        break;
+      }
+    }
+  }
+
+  var html = '';
+
+  if (entity === 'Portfolio') {
+    html += '<div class="form-group"><label class="form-label">Project Title *</label><input type="text" id="edit-Title" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Title : '')) + '" required></div>';
+    html += '<div class="form-group"><label class="form-label">Category *</label><select id="edit-Category" class="form-control">';
+    var cats = ['Graphic Design', 'Vibe Coding', 'Copywriting'];
+    for (var c = 0; c < cats.length; c++) {
+      var sel = (existing && existing.Category === cats[c]) ? ' selected' : '';
+      html += '<option value="' + cats[c] + '"' + sel + '>' + cats[c] + '</option>';
+    }
+    html += '</select></div>';
+    html += renderUniversalImageUploadMarkup('edit-ImageUrl', 'Project Image (Upload dari HP / Laptop) *', (existing ? existing.ImageUrl : ''), true);
+    html += '<div class="form-group"><label class="form-label">Summary *</label><textarea id="edit-Summary" class="form-control" rows="2" required>' + escapeHtml(safeGet(existing ? existing.Summary : '')) + '</textarea></div>';
+    html += '<div class="form-group"><label class="form-label">Detail Content</label><textarea id="edit-DetailContent" class="form-control" rows="3">' + escapeHtml(safeGet(existing ? existing.DetailContent : '')) + '</textarea></div>';
+    html += '<div class="form-group"><label class="form-label">Project Live URL</label><input type="url" id="edit-ProjectUrl" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.ProjectUrl : '')) + '"></div>';
+    html += '<div class="form-group"><label class="form-label">Sort Order</label><input type="number" id="edit-SortOrder" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.SortOrder : 1)) + '"></div>';
+  } else if (entity === 'Blogs') {
+    html += '<div class="form-group"><label class="form-label">Article Title *</label><input type="text" id="edit-Title" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Title : '')) + '" required></div>';
+    html += '<div class="form-group"><label class="form-label">Category *</label><input type="text" id="edit-Category" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Category : 'Vibe Coding')) + '" required></div>';
+    html += renderUniversalImageUploadMarkup('edit-ImageUrl', 'Banner Image (Upload dari HP / Laptop) *', (existing ? existing.ImageUrl : ''), true);
+    html += '<div class="form-group"><label class="form-label">Short Excerpt *</label><textarea id="edit-Excerpt" class="form-control" rows="2" required>' + escapeHtml(safeGet(existing ? existing.Excerpt : '')) + '</textarea></div>';
+    html += '<div class="form-group"><label class="form-label">Full Article Text *</label><textarea id="edit-FullContent" class="form-control" rows="4" required>' + escapeHtml(safeGet(existing ? existing.FullContent : '')) + '</textarea></div>';
+    html += '<div class="form-group"><label class="form-label">Date Published</label><input type="text" id="edit-DatePublished" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.DatePublished : '2026-10-13')) + '"></div>';
+    html += '<div class="form-group"><label class="form-label">Read Time</label><input type="text" id="edit-ReadTime" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.ReadTime : '5 min read')) + '"></div>';
+  } else if (entity === 'Services') {
+    html += '<div class="form-group"><label class="form-label">Service Title *</label><input type="text" id="edit-Title" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Title : '')) + '" required></div>';
+    html += '<div class="form-group"><label class="form-label">Description *</label><textarea id="edit-Description" class="form-control" rows="3" required>' + escapeHtml(safeGet(existing ? existing.Description : '')) + '</textarea></div>';
+    html += '<div class="form-group"><label class="form-label">Icon Name</label><input type="text" id="edit-Icon" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Icon : 'palette')) + '"></div>';
+    html += '<div class="form-group"><label class="form-label">Sort Order</label><input type="number" id="edit-SortOrder" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.SortOrder : 1)) + '"></div>';
+  } else if (entity === 'Process') {
+    html += '<div class="form-group"><label class="form-label">Step Number (1-4) *</label><input type="number" id="edit-StepNumber" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.StepNumber : 1)) + '" required></div>';
+    html += '<div class="form-group"><label class="form-label">Step Title *</label><input type="text" id="edit-Title" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Title : '')) + '" required></div>';
+    html += '<div class="form-group"><label class="form-label">Description *</label><textarea id="edit-Description" class="form-control" rows="3" required>' + escapeHtml(safeGet(existing ? existing.Description : '')) + '</textarea></div>';
+    html += '<div class="form-group"><label class="form-label">Icon Name</label><input type="text" id="edit-Icon" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Icon : 'compass')) + '"></div>';
+  } else if (entity === 'Testimonials') {
+    html += '<div class="form-group"><label class="form-label">Client Name *</label><input type="text" id="edit-ClientName" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.ClientName : '')) + '" required></div>';
+    html += '<div class="form-group"><label class="form-label">Client Role & Company *</label><input type="text" id="edit-ClientRole" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.ClientRole : '')) + '" required></div>';
+    html += renderUniversalImageUploadMarkup('edit-ClientPhoto', 'Client Photo (Upload dari HP / Laptop)', (existing ? existing.ClientPhoto : ''), false);
+    html += '<div class="form-group"><label class="form-label">Rating (1-5)</label><input type="number" id="edit-Rating" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.Rating : '5')) + '"></div>';
+    html += '<div class="form-group"><label class="form-label">Quote / Feedback *</label><textarea id="edit-QuoteText" class="form-control" rows="3" required>' + escapeHtml(safeGet(existing ? existing.QuoteText : '')) + '</textarea></div>';
+  } else if (entity === 'Clients') {
+    html += '<div class="form-group"><label class="form-label">Client / Partner Name *</label><input type="text" id="edit-ClientName" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.ClientName : '')) + '" required></div>';
+    html += renderUniversalImageUploadMarkup('edit-LogoUrl', 'Logo Image (Upload dari HP / Laptop) *', (existing ? existing.LogoUrl : ''), true);
+    html += '<div class="form-group"><label class="form-label">Sort Order</label><input type="number" id="edit-SortOrder" class="form-control" value="' + escapeHtml(safeGet(existing ? existing.SortOrder : 1)) + '"></div>';
+  }
+
+  fieldsEl.innerHTML = html;
+  openModal('modal-item-editor');
+}
+
+function closeItemEditor() {
+  var m = document.getElementById('modal-item-editor');
+  if (m) m.classList.remove('active');
+}
+
+function handleItemEditorSubmit(e) {
+  e.preventDefault();
+  var entity = currentEditorEntity;
+  var id = currentEditorId;
+  var btn = document.getElementById('btn-item-editor-save');
+
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  // Gather fields into primitive data object
+  var payload = {};
+  var idKey = entity.substring(0, entity.length - 1) + 'ID';
+  if (entity === 'Process') idKey = 'ProcessID';
+  if (entity === 'Blogs') idKey = 'BlogID';
+
+  if (id) {
+    payload[idKey] = String(id);
+  }
+
+  var inputs = document.getElementById('item-editor-fields').querySelectorAll('input, textarea, select');
+  for (var i = 0; i < inputs.length; i++) {
+    var field = inputs[i];
+    if (field.type === 'file') continue;
+    var fieldKey = field.id.replace('edit-', '');
+    payload[fieldKey] = String(field.value).trim();
+  }
+
+  // Determine backend save function name
+  var saveFuncName = 'save' + entity.substring(0, entity.length - 1) + 'Item';
+  if (entity === 'Process') saveFuncName = 'saveProcessItem';
+  if (entity === 'Blogs') saveFuncName = 'saveBlogItem';
+  if (entity === 'Services') saveFuncName = 'saveServiceItem';
+  if (entity === 'Testimonials') saveFuncName = 'saveTestimonialItem';
+  if (entity === 'Clients') saveFuncName = 'saveClientItem';
+
+  // Optimistic UI local array update
+  var targetList = null;
+  if (entity === 'Portfolio') targetList = AppState.portfolio;
+  if (entity === 'Blogs') targetList = AppState.blogs;
+  if (entity === 'Services') targetList = AppState.services;
+  if (entity === 'Process') targetList = AppState.process;
+  if (entity === 'Testimonials') targetList = AppState.testimonials;
+  if (entity === 'Clients') targetList = AppState.clients;
+
+  var existingIdx = -1;
+  if (id && targetList) {
+    for (var t = 0; t < targetList.length; t++) {
+      if (targetList[t][idKey] === id || targetList[t].PortfolioID === id || targetList[t].ServiceID === id || targetList[t].ClientID === id || targetList[t].TestimonialID === id) {
+        existingIdx = t;
+        break;
+      }
+    }
+  }
+
+  if (existingIdx !== -1) {
+    targetList[existingIdx] = Object.assign({}, targetList[existingIdx], payload);
+  } else if (targetList) {
+    if (!payload[idKey]) payload[idKey] = entity.substring(0, 3).toUpperCase() + '-' + Date.now();
+    targetList.push(payload);
+  }
+
+  // Render view immediately (Optimistic UI)
+  renderAllViews();
+  if (entity === 'Portfolio') loadCmsPortfolioTable();
+  if (entity === 'Blogs') loadCmsBlogsTable();
+  if (entity === 'Services') loadCmsServicesTable();
+  if (entity === 'Process') loadCmsProcessTable();
+  if (entity === 'Testimonials') loadCmsTestimonialsTable();
+  if (entity === 'Clients') loadCmsClientsTable();
+
+  callBackend(saveFuncName, [payload], function(res) {
+    btn.disabled = false;
+    btn.textContent = 'Save Item';
+    closeItemEditor();
+    showToast(entity + ' item saved & synced to Google Sheets!', 'success');
+  }, function() {
+    btn.disabled = false;
+    btn.textContent = 'Save Item';
+  });
+}
+
+function deleteCmsItem(entity, id) {
+  if (!confirm('Are you sure you want to delete ' + entity + ' item ' + id + '?')) {
+    return;
+  }
+
+  var deleteFuncName = 'delete' + entity.substring(0, entity.length - 1) + 'Item';
+  if (entity === 'Process') deleteFuncName = 'deleteProcessItem';
+  if (entity === 'Blogs') deleteFuncName = 'deleteBlogItem';
+  if (entity === 'Services') deleteFuncName = 'deleteServiceItem';
+  if (entity === 'Testimonials') deleteFuncName = 'deleteTestimonialItem';
+  if (entity === 'Clients') deleteFuncName = 'deleteClientItem';
+
+  // Optimistic UI local removal
+  var targetList = null;
+  if (entity === 'Portfolio') targetList = AppState.portfolio;
+  if (entity === 'Blogs') targetList = AppState.blogs;
+  if (entity === 'Services') targetList = AppState.services;
+  if (entity === 'Process') targetList = AppState.process;
+  if (entity === 'Testimonials') targetList = AppState.testimonials;
+  if (entity === 'Clients') targetList = AppState.clients;
+
+  if (targetList) {
+    for (var i = 0; i < targetList.length; i++) {
+      var it = targetList[i];
+      if (it.PortfolioID === id || it.BlogID === id || it.ServiceID === id || it.ProcessID === id || it.TestimonialID === id || it.ClientID === id) {
+        targetList.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  renderAllViews();
+  if (entity === 'Portfolio') loadCmsPortfolioTable();
+  if (entity === 'Blogs') loadCmsBlogsTable();
+  if (entity === 'Services') loadCmsServicesTable();
+  if (entity === 'Process') loadCmsProcessTable();
+  if (entity === 'Testimonials') loadCmsTestimonialsTable();
+  if (entity === 'Clients') loadCmsClientsTable();
+
+  callBackend(deleteFuncName, [id], function(res) {
+    showToast(entity + ' item deleted successfully from Google Sheets.', 'info');
+  });
+}
+
+// ==========================================================================
+// 12. NAVIGATION & RESPONSIVE TOGGLE
+// ==========================================================================
+function toggleMobileMenu() {
+  var nav = document.getElementById('nav-links');
+  if (nav) nav.classList.toggle('active');
+}
+
+function initNavigationScrollSpy() {
+  var links = document.querySelectorAll('.nav-links .nav-link');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function() {
+      var nav = document.getElementById('nav-links');
+      if (nav) nav.classList.remove('active');
+    });
+  }
+
+  window.addEventListener('scroll', function() {
+    var scrollPos = window.scrollY + 100;
+    var sections = ['hero', 'about', 'process', 'portfolio', 'blog', 'services', 'testimonials', 'contact'];
+
+    for (var s = 0; s < sections.length; s++) {
+      var sec = document.getElementById(sections[s]);
+      if (sec) {
+        var top = sec.offsetTop;
+        var height = sec.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          for (var l = 0; l < links.length; l++) {
+            if (links[l].getAttribute('href') === '#' + sections[s]) {
+              links[l].classList.add('active');
+            } else {
+              links[l].classList.remove('active');
+            }
+          }
+        }
+      }
+    }
+  });
+}
+</script>
