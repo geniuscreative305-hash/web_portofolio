@@ -12,7 +12,7 @@ function doGet(e) {
   }
 
   // Normal Google Apps Script Web App Template
-  var template = HtmlService.createTemplateFromFile('index');
+  var template = HtmlService.createTemplateFromFile('Index');
   return template.evaluate()
     .setTitle("Archana | Graphic Designer, Vibe Coder & Copywriter")
     .addMetaTag('viewport', 'width=device-width, initial-scale=1.0')
